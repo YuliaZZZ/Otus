@@ -39,4 +39,15 @@ class LogAnalyzerTestCase(unittest.TestCase):
         )
         self.assertEqual(len(os.listdir('./fixtures/reports')), 0)
 
+    def test_analyzer(self):
+        self.assertEqual(len(os.listdir('./fixtures/reports')), 0)
+        subprocess.check_output(
+            ["python3", "./log_analyzer.py", "-conf=fixtures/test_config3.json"],
+            universal_newlines=True,
+        )
+        self.assertEqual(len(os.listdir('./fixtures/reports')), 1)
+        self.assertTrue('report-2020.06.30.html' in os.listdir('./fixtures/reports'))
+        os.remove('./fixtures/reports/report-2020.06.30.html')
+
+
 
